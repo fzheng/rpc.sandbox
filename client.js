@@ -1,23 +1,26 @@
-'use strict';
+(function () {
+  'use strict';
 
-const PROTO_PATH = './protos/helloworld.proto';
-const path = require('path');
-const grpc = require('grpc');
-const hello_proto = grpc.load(path.resolve(PROTO_PATH)).helloworld;
+  const path = require('path');
+  const grpc = require('grpc');
+  const config = require('./config');
 
-function main () {
-  const client = new hello_proto.Greeter('localhost:50051', grpc.credentials.createInsecure());
-  let user;
-  if (process.argv.length >= 3) {
-    user = process.argv[2];
-  } else {
-    user = 'world';
+  const proto = grpc.load(path.resolve(config.proto.user)).user;
+  const client = new proto.User(config.server, grpc.credentials.createInsecure());
+
+  if (process.argv.length < 3) {
+    throw new Error("Username required");
   }
-  client.sayHello({
-    name: user
-  }, function (err, response) {
-    console.log('Greeting:', response.message);
-  });
-}
 
-main();
+  const req = {
+    name: process.argv[2]
+  };
+
+  client.getName(req, function (err, res) {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log(JSON.stringify(res.data));
+    }
+  });
+})();

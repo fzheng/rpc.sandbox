@@ -1,30 +1,28 @@
-'use strict';
+(function () {
+  'use strict';
 
-const PROTO_PATH = './protos/helloworld.proto';
-const path = require('path');
-const grpc = require('grpc');
-const hello_proto = grpc.load(path.resolve(PROTO_PATH)).helloworld;
+  const path = require('path');
+  const grpc = require('grpc');
+  const config = require('./config');
 
-/**
- * Implements the SayHello RPC method.
- */
-function sayHello (call, callback) {
-  callback(null, {
-    message: 'Hello ' + call.request.name
-  });
-}
-
-/**
- * Starts an RPC server that receives requests for the Greeter service at the
- * sample server port
- */
-function main () {
+  // Starts an RPC server that receives requests for the User service at the sample server port
+  const proto = grpc.load(path.resolve(config.proto.user)).user;
   const server = new grpc.Server();
-  server.addProtoService(hello_proto.Greeter.service, {
-    sayHello: sayHello
-  });
-  server.bind('0.0.0.0:50051', grpc.ServerCredentials.createInsecure());
-  server.start();
-}
+  server.bind(config.server, grpc.ServerCredentials.createInsecure());
 
-main();
+  const userService = proto.User.service;
+
+  server.addProtoService(userService, {
+    // Implements the getName RPC method.
+    getName: function (req, cb) {
+      const res = {
+        data: {
+          name: req.request.name
+        }
+      };
+      cb(null, res);
+    }
+  });
+
+  server.start();
+})();
