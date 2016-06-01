@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package project;
+
+service Project {
+    rpc ListProjects (ProjectListRequest) returns (ProjectListReply) {
+    }
+}
+
+message ProjectListRequest {
+    repeated string ids = 1;
+}
+
+message ProjectListReply {
+    message Data {
+        string id = 1;
+        string name = 2;
+    }
+
+    repeated Data data = 1;
+}

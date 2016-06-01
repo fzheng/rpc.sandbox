@@ -1,8 +1,12 @@
 'use strict';
 
 module.exports = {
-  server: 'localhost:50051',
-  proto: {
-    user: './protos/user.proto'
+  "user": {
+    "server": "localhost:50051",
+    "proto": "./protos/user.proto"
+  },
+  "project": {
+    "server": "localhost:50052",
+    "proto": "./protos/project.proto"
   }
 };

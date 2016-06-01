@@ -3,22 +3,23 @@ syntax = "proto3";
 package user;
 
 service User {
-    // The service definition.
-    rpc GetName (Request) returns (Reply) {
+    rpc UserInfo (UserInfoRequest) returns (UserInfoReply) {
     }
 }
 
-// The request message containing the user's name.
-message Request {
+message UserInfoRequest {
     string name = 1;
 }
 
-// The user info message containing the user info
-message UserInfo {
-    string name = 1;
-}
+message UserInfoReply {
+    message ProjectId {
+        string id = 1;
+    }
 
-// The response message containing the user info data
-message Reply {
-    UserInfo data = 1;
+    message Data {
+        string name = 1;
+        repeated ProjectId projects = 2;
+    }
+
+    Data data = 1;
 }
