@@ -1,6 +1,8 @@
 {
   "name": "rpc.sandbox",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "description": "A grpc sandbox",
+  "main": "servers/index.js",
   "dependencies": {
     "async": "^1.5.2",
     "crypto": "0.0.3",
@@ -11,5 +13,18 @@
   },
   "scripts": {
     "start": "node servers"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:fzheng/rpc.sandbox.git"
+  },
+  "keywords": [
+    "node",
+    "grpc"
+  ],
+  "author": "Feng Zheng",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fzheng/rpc.sandbox/issues"
   }
 }
