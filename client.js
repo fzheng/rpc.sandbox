@@ -7,10 +7,10 @@
   const async = require('async');
 
   const userProto = grpc.load(path.resolve(config.user.proto)).user;
-  const userClient = new userProto.User(config.user.server, grpc.credentials.createInsecure());
+  const userClient = new userProto.User(config.user.address, grpc.credentials.createInsecure());
 
   const projectProto = grpc.load(path.resolve(config.project.proto)).project;
-  const projectClient = new projectProto.Project(config.project.server, grpc.credentials.createInsecure());
+  const projectClient = new projectProto.Project(config.project.address, grpc.credentials.createInsecure());
 
   async.waterfall([
     // step 1: get user name
