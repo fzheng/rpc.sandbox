@@ -15,6 +15,7 @@ message ProjectListReply {
     message Data {
         string id = 1;
         string name = 2;
+        int32 repos = 3;
     }
 
     repeated Data data = 1;

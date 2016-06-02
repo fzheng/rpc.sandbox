@@ -38,10 +38,12 @@ module.exports = {
 
   getProjectList: function (ids) {
     const res = [];
+    const self = this;
     for (let i = 0; i < ids.length; ++i) {
       res.push({
         "id": ids[i],
-        "name": "Project " + this.id(5).toUpperCase()
+        "name": "Project " + this.id(3).toUpperCase(),
+        "repos": self.getRandomInt(0, 100)
       });
     }
     return {
