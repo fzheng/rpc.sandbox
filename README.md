@@ -7,6 +7,6 @@ RPC Sandbox
 $ npm install
 $ npm start
 #in another terminal
-$ node client.js <Any Name>
+$ node index.js <Any Name>
 ```
 ---

@@ -1,16 +1,8 @@
 (function () {
   'use strict';
 
-  const path = require('path');
-  const grpc = require('grpc');
-  const config = require('./config');
   const async = require('async');
-
-  const userProto = grpc.load(path.resolve(config.user.proto)).user;
-  const userClient = new userProto.User(config.user.address, grpc.credentials.createInsecure());
-
-  const projectProto = grpc.load(path.resolve(config.project.proto)).project;
-  const projectClient = new projectProto.Project(config.project.address, grpc.credentials.createInsecure());
+  const clients = require('./clients');
 
   async.waterfall([
     // step 1: get user name
@@ -25,7 +17,7 @@
     },
     // step 2: get project ids for the user
     function (userReq, callback) {
-      userClient.userInfo(userReq, function (err, userRes) {
+      clients.user.userInfo(userReq, function (err, userRes) {
         if (err) {
           return callback(err);
         }
@@ -39,7 +31,7 @@
     },
     // step 3: get project names for those project ids
     function (projectReq, callback) {
-      projectClient.listProjects(projectReq, function (err, projectRes) {
+      clients.project.listProjects(projectReq, function (err, projectRes) {
         if (err) {
           return callback(err);
         }

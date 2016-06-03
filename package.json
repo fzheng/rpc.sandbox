@@ -2,7 +2,7 @@
   "name": "rpc.sandbox",
   "version": "0.0.2",
   "description": "A grpc sandbox",
-  "main": "servers/index.js",
+  "main": "index.js",
   "dependencies": {
     "async": "^1.5.2",
     "crypto": "0.0.3",
